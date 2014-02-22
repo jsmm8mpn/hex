@@ -1,0 +1,7 @@
+.idea/
+*.iws
+node_modules/
+bower_components/
+*.js
+*.map
+*.css
