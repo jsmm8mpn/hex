@@ -20,17 +20,17 @@ module.exports = (grunt) ->
 
     nodemon:
       dev:
+        script: 'server.coffee'
         options:
-          file: 'server.coffee'
           nodeArgs: []
-          watchedExtensions: ['coffee']
-          watchedFolders: ['routes', './']
+          ext: 'coffee'
+          watch: ['routes', './']
       debug:
+        script: 'server.coffee'
         options:
-          file: 'server.coffee'
           nodeArgs: ['--debug-brk']
-          watchedExtensions: ['coffee']
-          watchedFolders: ['routes']
+          ext: 'coffee'
+          watch: ['routes']
 
     watch:
       options:
@@ -49,7 +49,7 @@ module.exports = (grunt) ->
     coffee:
       compile:
         files:
-          "public/javascripts/client.js": ["client/coffee/app.coffee", "client/coffee/controllers/*.coffee", "client/coffee/directives.coffee"]
+          "public/javascripts/client.js": ["client/coffee/**/*.coffee"]
           "server.js": ["server.coffee"]
 
     less:

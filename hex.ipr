@@ -68,18 +68,23 @@
     <library name="Generated files" type="javaScript">
       <properties>
         <sourceFilesUrls>
-          <item url="file://$PROJECT_DIR$/client/coffee/directives.js" />
           <item url="file://$PROJECT_DIR$/server.js" />
           <item url="file://$PROJECT_DIR$/Gruntfile.js" />
+          <item url="file://$PROJECT_DIR$/client/coffee/modules/test.js" />
           <item url="file://$PROJECT_DIR$/client/coffee/app.js" />
+          <item url="file://$PROJECT_DIR$/client/coffee/services/testService.js" />
           <item url="file://$PROJECT_DIR$/client/coffee/controllers/mainCtrl.js" />
         </sourceFilesUrls>
       </properties>
       <CLASSES>
         <root url="file://$PROJECT_DIR$/client/coffee/directives.js" />
+        <root url="file://$PROJECT_DIR$/client/coffee/directives.js" />
+        <root url="file://$PROJECT_DIR$/client/coffee/services/testService.js" />
         <root url="file://$PROJECT_DIR$/server.js" />
         <root url="file://$PROJECT_DIR$/Gruntfile.js" />
+        <root url="file://$PROJECT_DIR$/client/coffee/modules/test.js" />
         <root url="file://$PROJECT_DIR$/client/coffee/app.js" />
+        <root url="file://$PROJECT_DIR$/client/coffee/services/testService.js" />
         <root url="file://$PROJECT_DIR$/client/coffee/controllers/mainCtrl.js" />
       </CLASSES>
       <JAVADOC />

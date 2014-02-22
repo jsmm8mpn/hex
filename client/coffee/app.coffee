@@ -1,9 +1,12 @@
-angular.module('hex', ['myDir']).config(['$routeProvider', ($routeProvider) ->
+angular.module('hex', [
+  'ngRoute',
+  'app.test'
+])
+.config(['$routeProvider', ($routeProvider) ->
   $routeProvider.when('/main',
     templateUrl: 'view/main'
     controller: MainCtrl
-  ).otherwise({
+  ).when('/',
     redirectTo: '/main'
-
-  })
+  )
 ])
