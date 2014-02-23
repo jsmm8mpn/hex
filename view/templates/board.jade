@@ -1,5 +1,5 @@
-.hex-row(ng-repeat="i in number(width) track by $index", ng-class="{even: $even}")
-  .hex(ng-repeat="j in number(height) track by $index")
-    .top
-    .middle
-    .bottom
+
+
+.tile-row(ng-repeat="i in number(width) track by $index", ng-class="{even: $even}")
+  .tileDir(ng-repeat="j in number(height) track by $index")
+   // span(style="color: #6C6; font-size: 135px;")&#x2B22

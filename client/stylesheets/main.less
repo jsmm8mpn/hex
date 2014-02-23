@@ -1,28 +1,59 @@
-.hex {
+.tile {
   float: left;
   margin-left: 3px;
-  margin-bottom: -26px;
+  //margin-bottom: -26px;
+  margin-top: 32px;
+  width: 104px;
+  height: 60px;
+  background-color: #6C6;
+  position: relative;
+
+  &.selected {
+    background-color: #FFF;
+  }
+  &.selected:before {
+    border-bottom-color: #FFF;
+  }
+  &.selected:after {
+    border-top-color: #FFF;
+  }
 }
-.hex .top {
-  width: 0;
+
+.tile:hover {
+  background-color: #FFF;
+}
+
+.tile:hover:before {
+  border-bottom-color: #FFF;
+}
+
+.tile:hover:after {
+  border-top-color: #FFF;
+}
+
+.tile:before {
+  content: " ";
+  width: 0; height: 0;
   border-bottom: 30px solid #6C6;
   border-left: 52px solid transparent;
   border-right: 52px solid transparent;
+  position: absolute;
+  top: -30px;
 }
-.hex .middle {
-  width: 104px;
-  height: 60px;
-  background: #6C6;
-}
-.hex .bottom {
+
+.tile:after {
+  content: "";
   width: 0;
+  position: absolute;
+  bottom: -30px;
   border-top: 30px solid #6C6;
   border-left: 52px solid transparent;
   border-right: 52px solid transparent;
 }
-.hex-row {
+
+.tile-row {
   clear: left;
 }
-.hex-row.even {
+.tile-row.even {
   margin-left: 53px;
 }
