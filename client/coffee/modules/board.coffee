@@ -3,8 +3,8 @@ angular.module('hex.board', []).directive('board', ['$timeout','testService', ($
     restrict: 'AC'
     templateUrl: 'view/templates/board'
     link: (scope, elem, attrs) ->
-      scope.width = 5
-      scope.height = 5
+      scope.width = 6
+      scope.height = 6
       scope.number = (num) ->
         new Array(num)
 

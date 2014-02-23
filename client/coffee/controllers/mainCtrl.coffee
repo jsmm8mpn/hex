@@ -1,4 +1,11 @@
-@MainCtrl = ($scope) ->
+@MainCtrl = ['$scope', '$timeout', ($scope, $timeout) ->
 
-  console.log('here')
-
+  $scope.zoomIn = ->
+    $('.board').panzoom("zoom");
+  $scope.zoomOut = ->
+    $('.board').panzoom("zoom", true);
+  $timeout ->
+    $('.board').panzoom({
+      contain: true
+    })
+]
