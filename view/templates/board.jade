@@ -1,2 +1,5 @@
-.tileColumn(ng-repeat="i in number(width) track by $index")
-  .tile(ng-repeat="j in number(height) track by $index", ng-class="{half: $parent.$even && $index == 0}")
+.hex-row(ng-repeat="i in number(width) track by $index", ng-class="{even: $even}")
+  .hex(ng-repeat="j in number(height) track by $index")
+    .top
+    .middle
+    .bottom
