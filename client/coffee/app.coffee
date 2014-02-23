@@ -1,6 +1,6 @@
 angular.module('hex', [
   'ngRoute',
-  'app.test'
+  'hex.board'
 ])
 .config(['$routeProvider', ($routeProvider) ->
   $routeProvider.when('/main',
