@@ -20,14 +20,17 @@ window.HexGrid =
       .attr("width",  tileWidth)
       .attr("height", tileHeight)
 
-      polygon = d3.select("#hex-tile").selectAll("polygon").data(vertices)
-      polygon.enter().append("svg:polygon")
-      polygon.attr("points", (d, i) -> d.join(" "))
+      polygon = d3.select("#hex-tile").selectAll("polygon").data(vertices).enter().append('svg:polygon')
+      polygon.attr("points", (d, i) -> d.join(" ")).on("mousemove", ->
+        d3.select(this).attr('style', 'fill:#000000')
+      )
+      #polygon.enter().append("svg:polygon")
+      #polygon.attr("points", (d, i) -> d.join(" "))
 
       d3
-      .select("#hex-grid")
-      .attr("width",  tileWidth  * @cols)
-      .attr("height", tileHeight * @rows)
+      .select("#hex-tile")
+      .attr("width",  1000)
+      .attr("height", 600)
 
     calculateHexTile: ->
       originX = -@r - (@padding / 2)
@@ -35,8 +38,8 @@ window.HexGrid =
 
       vertices = []
 
-      for row in [0...3]
-        for col in [0...3]
+      for row in [0...10]
+        for col in [0...10]
           [x, y] = this.calculateXY(originX, originY, col, row)
           vertices.push(this.calculateHexVertices(x, y))
 
