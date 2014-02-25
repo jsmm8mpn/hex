@@ -8,6 +8,11 @@ angular.module('hex.board', []).directive('board', ['$timeout','testService', ($
       scope.number = (num) ->
         new Array(num)
 
+      $timeout(->
+        hexGrid = new HexGrid(8, 8, 20, 4)
+      )
+
+
   }
 ])
 .directive('tileDir', ->
