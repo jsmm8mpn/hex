@@ -2,30 +2,100 @@ angular.module('hex.board', []).directive('board', ['$timeout','testService', ($
   return {
     restrict: 'AC'
     templateUrl: 'view/templates/board'
+    scope:
+      rows: '='
+      cols: '='
+      size: '='
+      padding: '='
     link: (scope, elem, attrs) ->
-      scope.width = 6
-      scope.height = 6
-      scope.number = (num) ->
-        new Array(num)
 
-      $timeout(->
-        hexGrid = new HexGrid(8, 8, 20, 4)
-      )
+      size = scope.size
+      padding = scope.padding
+
+      degreesToRadians = (degrees) -> degrees * Math.PI / 180
+
+      r = size * Math.cos(degreesToRadians(30))
+      h = size * Math.sin(degreesToRadians(30))
+      d = padding / 2 / Math.tan(degreesToRadians(30))
+
+      tileWidth  = (4 * r) + (2 * padding)
+      tileHeight = (2 * h) + (2 * size) + (2 * d)
+
+      calculateHexTile= ->
+        originX = -r - (padding / 2)
+        originY = -h - (size / 2)
+
+        vertices = []
+
+        for row in [0...scope.rows]
+          for col in [0...scope.cols]
+            [x, y] = calculateXY(originX, originY, col, row)
+            vertices.push(createPoints(x, y))
+
+        vertices
+
+      calculateXY = (x, y, col, row) ->
+        width  = (2 * r) + padding
+        height = size + h + d
+
+        [
+          x + (col * width) + ((row % 2) * (width / 2))
+          y + (row * height)
+        ]
+
+      createPoints = (x, y) ->
+        x+','+y + ' ' + (x+r)+','+(y+h)+' '+(x+r)+','+(y+size+h)+' '+x+','+(y+size+h+h)+' '+(x-r)+','+(y+size+h)+' '+(x-r)+','+(y+h)
+
+      calculateHexVertices = (x, y) ->
+        [
+          [x,      y                  ]
+          [x + r, y + h             ]
+          [x + r, y + size + h     ]
+          [x,      y + size + h + h]
+          [x - r, y + size + h     ]
+          [x - r, y + h             ]
+        ]
+
+      vertices = calculateHexTile()
+
+      scope.vertices = vertices
+
+#        d3
+#          .select("#hex-tile")
+#          .attr("width",  tileWidth)
+#          .attr("height", tileHeight)
+
+#        polygon = d3.select("#hex-tile").selectAll("polygon").data(vertices).enter().append('svg:polygon')
+#        polygon.attr("points", (d, i) -> d.join(" ")).on("mousemove", ->
+#          d3.select(this).attr('style', 'fill:#000000')
+#        )
+        #polygon.enter().append("svg:polygon")
+        #polygon.attr("points", (d, i) -> d.join(" "))
+
+
+
+#        d3
+#        .select("#hex-tile")
+#        .attr("width",  1000)
+#        .attr("height", 600)
+
 
 
   }
 ])
-.directive('tileDir', ->
+.directive('polygon', ['$timeout', ($timeout) ->
   return {
-    restrict: 'AC'
-    templateUrl: 'view/templates/tile'
-    scope: {}
+    restrict: 'EAC'
+    #templateUrl: 'view/templates/tile'
+    #replace: true
+    scope:
+      vertice: '='
     link: (scope, elem, attrs) ->
-      console.log('tile')
-      scope.select = ->
-        scope.selected = true
+      $(elem).attr('points', scope.vertice)
+      $(elem).click ->
+        console.log('click')
   }
-)
+])
 .factory('testService', ->
 
   return {
