@@ -1,5 +1,7 @@
-svg(id="hex-tile", width="1000px", height="1000px", version="1.1", xmlns="http://www.w3.org/2000/svg")
-  polygon(ng-repeat="vertice in vertices", vertice="vertice")
+svg(id="hex-tile", version="1.1", xmlns="http://www.w3.org/2000/svg")
+  //script(src="/ext/SVGPan.js")
+  g(id="viewport")
+    polygon(ng-repeat="vertice in vertices", vertice="vertice")
   //.tileDir(ng-repeat="vertice in vertices", vertice="vertice")
   //defs
     pattern(id="hex-tile", patternUnits="userSpaceOnUse")

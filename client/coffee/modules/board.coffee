@@ -80,6 +80,9 @@ angular.module('hex.board', []).directive('board', ['$timeout','testService', ($
 #        .attr("height", 600)
 
 
+      #$(elem).on('mousewheel', mouseWheelHandler)
+      $timeout ->
+        SVGPan()
 
   }
 ])
