@@ -1,7 +1,8 @@
 svg(id="hex-tile", version="1.1", xmlns="http://www.w3.org/2000/svg")
   //script(src="/ext/SVGPan.js")
-  g(id="viewport")
+  g(id="viewport", transform="matrix(1,0,0,1,-50,-50)")
     polygon(ng-repeat="vertice in vertices", vertice="vertice")
+    text(ng-repeat="vertice in vertices", x="{{vertice[2][0]}}", y="{{vertice[2][1]}}") {{$index}}
   //.tileDir(ng-repeat="vertice in vertices", vertice="vertice")
   //defs
     pattern(id="hex-tile", patternUnits="userSpaceOnUse")

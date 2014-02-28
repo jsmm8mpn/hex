@@ -1,11 +1,12 @@
 @MainCtrl = ['$scope', '$timeout', ($scope, $timeout) ->
 
 #  $scope.zoomIn = ->
-#    $('.board').panzoom("zoom");
+#    $('.wrapper').panzoom("zoom");
 #  $scope.zoomOut = ->
-#    $('.board').panzoom("zoom", true);
+#    $('.wrapper').panzoom("zoom", true);
 #  $timeout ->
-#    $('.board').panzoom({
-#      contain: true
+#    $('.wrapper').panzoom({
+#      contain: 'invert',
+#      minScale: 1
 #    })
 ]

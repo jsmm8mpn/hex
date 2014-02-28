@@ -30,7 +30,7 @@ angular.module('hex.board', []).directive('board', ['$timeout','testService', ($
         for row in [0...scope.rows]
           for col in [0...scope.cols]
             [x, y] = calculateXY(originX, originY, col, row)
-            vertices.push(createPoints(x, y))
+            vertices.push(calculateHexVertices(x, y))
 
         vertices
 
@@ -94,7 +94,11 @@ angular.module('hex.board', []).directive('board', ['$timeout','testService', ($
     scope:
       vertice: '='
     link: (scope, elem, attrs) ->
-      $(elem).attr('points', scope.vertice)
+      points = ''
+      for point in scope.vertice
+        points += point[0]+','+point[1] + ' '
+
+      $(elem).attr('points', points)
       $(elem).click ->
         console.log('click')
   }

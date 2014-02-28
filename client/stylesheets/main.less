@@ -1,6 +1,10 @@
 .board {
-  //width: 2000px;
-  //height: 1500px;
+  position:fixed !important;
+  position:absolute;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
 }
 
 .bottomPanel {
@@ -13,10 +17,21 @@
 }
 
 .topPanel {
+  overflow: hidden;
+  height: 66%;
   //top: -300px;
   //height: 1200px;
 }
 
+.wrapper {
+  width: 1500px;
+  height: 1000px;
+  overflow: hidden;
+}
+//#hex-tile {
+//  width: 1500px;
+//  height: 1000px;
+//}
 
 #hex-tile polygon {
   fill: #6C6;
