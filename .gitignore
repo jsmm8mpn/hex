@@ -5,3 +5,4 @@ bower_components/
 public/
 *.map
 *.css
+server.js

@@ -51,7 +51,7 @@ module.exports = (grunt) ->
 
     concat:
       js:
-        src: ['client/coffee/**/*.js','tmp/compiled.js']
+        src: ['client/js/**/*.js']
         dest: 'public/javascripts/client.js'
 
     coffee:
@@ -107,7 +107,7 @@ module.exports = (grunt) ->
 
 
   grunt.registerTask 'test', ['mochacli']
-  grunt.registerTask "compile", ["coffee", "concat", 'less']
+  grunt.registerTask "compile", ["concat", 'less']
   grunt.registerTask "prod", ['test', "compile", "uglify"]
 
   grunt.registerTask "server", ->
