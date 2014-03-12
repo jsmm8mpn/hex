@@ -37,19 +37,27 @@ module.exports = (grunt) ->
         livereload: true
       #server:
       #  files: ["server.coffee", "routes/*.coffee"]
-      javascript:
-        files: ["client/coffee/**/*.coffee"]
-        tasks: "coffee"
+      coffee:
+        files: ["client/js/**/*.coffee"]
+        tasks: ["coffee","concat"]
+      js:
+        files: ["client/js/**/*.js"]
+        tasks: ["concat"]
       less:
         files: ['client/stylesheets/*.less']
         tasks: "less"
       jade:
         files: ['view/*.jade', 'view/templates/*.jade']
 
+    concat:
+      js:
+        src: ['client/coffee/**/*.js','tmp/compiled.js']
+        dest: 'public/javascripts/client.js'
+
     coffee:
       compile:
         files:
-          "public/javascripts/client.js": ["client/coffee/**/*.coffee"]
+          "tmp/compiled.js": ["client/js/**/*.coffee"]
           "server.js": ["server.coffee"]
 
     less:
@@ -88,6 +96,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks "grunt-contrib-less"
   grunt.loadNpmTasks "grunt-contrib-jade"
   grunt.loadNpmTasks "grunt-contrib-clean"
+  grunt.loadNpmTasks "grunt-contrib-concat"
   #grunt.loadNpmTasks "grunt-contrib-concat"
   grunt.loadNpmTasks "grunt-contrib-uglify"
   grunt.loadNpmTasks "grunt-contrib-copy"
@@ -98,7 +107,7 @@ module.exports = (grunt) ->
 
 
   grunt.registerTask 'test', ['mochacli']
-  grunt.registerTask "compile", ["coffee", 'less']
+  grunt.registerTask "compile", ["coffee", "concat", 'less']
   grunt.registerTask "prod", ['test', "compile", "uglify"]
 
   grunt.registerTask "server", ->
