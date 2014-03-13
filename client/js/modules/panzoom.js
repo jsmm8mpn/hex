@@ -78,7 +78,7 @@ angular.module('hex.panzoom', [])
       // Compute new scale matrix in current mouse position
       var k = root.createSVGMatrix().translate(p.x, p.y).scale(z).translate(-p.x, -p.y);
 
-      var bbox = $('#hex-tile')[0].getBBox();
+      var bbox = root.getBBox();
       boardWidth = bbox.width * z;
       boardHeight = bbox.height * z;
 
