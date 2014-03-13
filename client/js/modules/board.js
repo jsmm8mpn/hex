@@ -1,5 +1,5 @@
 angular.module('hex.board', [])
-.directive('board', ['$timeout', 'panzoom', function($timeout, panzoom) {
+.directive('board', ['$timeout', function($timeout) {
   return {
     restrict: 'AC',
     templateUrl: 'view/templates/board',
@@ -52,7 +52,7 @@ angular.module('hex.board', [])
       height = size + h + d;
       scope.boardSize = [scope.cols * width, scope.rows * height];
       return $timeout(function() {
-        return panzoom.start();
+        //return panzoom.start();
       });
     }
   };
