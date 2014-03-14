@@ -89,14 +89,14 @@ angular.module('hex.panzoom', [])
       }
 
       var newM = svgRoot.getCTM().multiply(k);
-      if (newM.e > 50) {
-        newM.e = 50;
+      if (newM.e > 0) {
+        newM.e = 0;
       }
       if (newM.e < $(window).width()-boardWidth)   {
         newM.e = $(window).width() - boardWidth;
       }
-      if (newM.f > 50) {
-        newM.f = 50;
+      if (newM.f > 0) {
+        newM.f = 0;
       }
       if (newM.f < $(window).height()-boardHeight) {
         newM.f = $(window).height()-boardHeight;
