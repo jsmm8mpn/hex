@@ -10,7 +10,19 @@ angular.module('hex.panzoom', [])
 
     var state = 'none', svgRoot = null, stateOrigin, stateTf;
 
-    function SVGPan(elm) {
+    function addEvents(elm) {
+      elm.on('mouseup',handleMouseUp);
+      elm.on('mousedown',handleMouseDown);
+      elm.on('mousemove',handleMouseMove);
+    }
+
+    function removeEvents(elm) {
+      elm.off('mouseup');
+      elm.off('mousedown');
+      elm.off('mousemove');
+    }
+
+    function SVGPan(elm, disable) {
 
       var bbox = elm[0].getBBox();
       boardWidth = bbox.width;
@@ -19,8 +31,8 @@ angular.module('hex.panzoom', [])
       root = elm.parent()[0];
       svgRoot = elm[0];
 
-      var windowWidth = $(window).width();
-      var windowHeight = $(window).height();
+      var windowWidth = $('.leftPanel').width();
+      var windowHeight = $('.leftPanel').height();
       var xDiff = windowWidth - boardWidth;
       var yDiff = windowHeight -boardHeight;
       if (xDiff > 0 || yDiff > 0) {
@@ -35,9 +47,9 @@ angular.module('hex.panzoom', [])
         setCTM(g, g.getCTM().multiply(k));
       }
 
-      elm.on('mouseup',handleMouseUp);
-      elm.on('mousedown',handleMouseDown);
-      elm.on('mousemove',handleMouseMove);
+      if (!disable) {
+        addEvents(elm);
+      }
 
       if(navigator.userAgent.toLowerCase().indexOf('webkit') >= 0)
         window.addEventListener('mousewheel', handleMouseWheel, false); // Chrome/Safari
@@ -82,8 +94,8 @@ angular.module('hex.panzoom', [])
       boardWidth = bbox.width * z;
       boardHeight = bbox.height * z;
 
-      var xRatio = $(window).width()/boardWidth;
-      var yRatio = $(window).height()/boardHeight;
+      var xRatio = $('.leftPanel').width()/boardWidth;
+      var yRatio = $('.leftPanel').height()/boardHeight;
       if (xRatio >= 1 || yRatio >= 1) {
         return;
       }
@@ -92,14 +104,14 @@ angular.module('hex.panzoom', [])
       if (newM.e > 0) {
         newM.e = 0;
       }
-      if (newM.e < $(window).width()-boardWidth)   {
-        newM.e = $(window).width() - boardWidth;
+      if (newM.e < $('.leftPanel').width()-boardWidth)   {
+        newM.e = $('.leftPanel').width() - boardWidth;
       }
       if (newM.f > 0) {
         newM.f = 0;
       }
-      if (newM.f < $(window).height()-boardHeight) {
-        newM.f = $(window).height()-boardHeight;
+      if (newM.f < $('.leftPanel').height()-boardHeight) {
+        newM.f = $('.leftPanel').height()-boardHeight;
       }
 
       setCTM(svgRoot, newM);
@@ -123,14 +135,14 @@ angular.module('hex.panzoom', [])
         if (newM.e > 0) {
           newM.e = 0;
         }
-        if (newM.e < $(window).width()-boardWidth)   {
-          newM.e = $(window).width() - boardWidth;
+        if (newM.e < $('.leftPanel').width()-boardWidth)   {
+          newM.e = $('.leftPanel').width() - boardWidth;
         }
         if (newM.f > 0) {
           newM.f = 0;
         }
-        if (newM.f < $(window).height()-boardHeight) {
-          newM.f = $(window).height()-boardHeight;
+        if (newM.f < $('.leftPanel').height()-boardHeight) {
+          newM.f = $('.leftPanel').height()-boardHeight;
         }
 
         setCTM(svgRoot, newM);
@@ -157,11 +169,20 @@ angular.module('hex.panzoom', [])
     return {
       restrict: 'A',
       scope: {
-
+        disable: '='
       },
       link: function(scope, elem, attrs) {
+
+        scope.$watch('disable', function(val, oldVal) {
+          if (val && !oldVal) {
+            removeEvents(elem);
+          } else if (!val && oldVal) {
+            addEvents(elem);
+          }
+        });
+
         setTimeout(function() {
-          SVGPan($(elem));
+          SVGPan($(elem), scope.disable);
         });
       }
     }

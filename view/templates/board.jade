@@ -1,4 +1,4 @@
 svg(id="hex-tile", version="1.1", xmlns="http://www.w3.org/2000/svg")
-  g(id="viewport", transform="matrix(1,0,0,1,-50,-50)", panzoom)
+  g(id="viewport", transform="matrix(1,0,0,1,-25,-25)", panzoom, disable="false")
     rect(x="0",y="0",width="{{boardSize[0]+100}}",height="{{boardSize[1]+100}}")
-    polygon(ng-repeat="vertice in vertices", vertice="vertice.vertice", water="vertice.water")
+    polygon(ng-repeat="tile in tiles", vertice="tile.vertice", type="tile.type")

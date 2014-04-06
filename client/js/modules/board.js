@@ -12,7 +12,8 @@ angular.module('hex.board', [])
       rows: '=',
       cols: '=',
       size: '=',
-      padding: '='
+      padding: '=',
+      tiles: '='
     },
     link: function(scope, elem, attrs) {
       var size = scope.size;
@@ -47,7 +48,9 @@ angular.module('hex.board', [])
         return [[x, y], [x + r, y + h], [x + r, y + size + h], [x, y + size + h + h], [x - r, y + size + h], [x - r, y + h]];
       }
 
-      scope.vertices = calculateHexTile();
+      if (!scope.tiles) {
+        scope.tiles = calculateHexTile();
+      }
       scope.boardSize = [scope.cols * width, scope.rows * height];
     }
   };
@@ -55,30 +58,38 @@ angular.module('hex.board', [])
 
 .directive('polygon', ['$timeout', function($timeout) {
   return {
-    restrict: 'EAC',
+    restrict: 'E',
     scope: {
       vertice: '=',
-      water: '=?'
+      type: '='
     },
-    link: function(scope, elem, attrs) {
+    link: function(scope, elem, attr) {
+
       var vertice = scope.vertice;
       var points = '';
       for (var i = 0; i < vertice.length; i++) {
         points += vertice[i][0] + ',' + vertice[i][1] + ' ';
       }
       $(elem).attr('points', points);
-      //if (vertice[0][0] < 0 || vertice[0][1] < 0 || vertice[0][0] > 500 || vertice[0][1] > 300) {
-      if (scope.water) {
-        $(elem).attr('style', 'fill:#0000FF');
-      }
-      return $(elem).click(function() {
-        return console.log('click');
-      });
+
     }
   };
 }])
 
-.factory('testService', function() {
+.directive('type', ['tiles', function(tiles) {
+  return {
+    restrict: 'A',
+    link: function(scope, elm, attr) {
+      scope.$watch(attr.type, function(type) {
+        if (type) {
+          $(elm).attr('class', type);
+        }
+      });
+    }
+  }
+}])
+
+.factory('tileType', function() {
   return {
     sayHello: function() {
       return console.log('hello');
