@@ -1,9 +1,11 @@
 .leftPanel
-  .board(cols="30", rows="20", size="20", padding="3", tiles="tiles")
+  .board(tiles="tiles", board-size="boardSize")
 .rightPanel
-  .btn.btn-primary.btn-sm(ng-click="") Reset
+  input(placeholder="Enter name ...", ng-model="name")
   .btn.btn-primary.btn-sm(ng-click="save()") Save
-  input(ng-model="name")
+  input(ng-model="newTileRows", size="3")
+  input(ng-model="newTileCols", size="3")
+  .btn.btn-primary.btn-sm(ng-click="changeSize(newTileRows, newTileCols)") Size
   .type(ng-click="type = 'water'") Water
   .type(ng-click="type = 'grass'") Grass
   .type(ng-click="type = 'hill'") Hill
