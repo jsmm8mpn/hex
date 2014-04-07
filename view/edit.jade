@@ -1,10 +1,10 @@
 .leftPanel
-  .board(tiles="tiles", board-size="boardSize")
+  .board(tiles="tiles", board-size="boardSize", ng-if="tiles")
 .rightPanel
   input(placeholder="Enter name ...", ng-model="name")
   .btn.btn-primary.btn-sm(ng-click="save()") Save
-  input(ng-model="newTileRows", size="3")
-  input(ng-model="newTileCols", size="3")
+  input(ng-model="newTileRows", type="number", size="3")
+  input(ng-model="newTileCols", type="number", size="3")
   .btn.btn-primary.btn-sm(ng-click="changeSize(newTileRows, newTileCols)") Size
   .type(ng-click="type = 'water'") Water
   .type(ng-click="type = 'grass'") Grass

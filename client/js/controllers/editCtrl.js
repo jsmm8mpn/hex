@@ -36,19 +36,30 @@ var EditCtrl = ['$scope', '$timeout', '$http', '$routeParams', 'mapGenerator', f
     });
   }
   
+  var tileRows;
+  var tileCols;
   if ($routeParams.name) {
     $scope.loading = true;
     var name = $routeParams.name;
     $http.get('/map/' + name).then(
       function(res) {
-        $scope.tiles = res.data.tiles;  
+        $scope.tiles = res.data.tiles;
+        tileRows = res.data.rows;
+        tileCols = res.data.cols;
+        $scope.newTileRows = tileRows;
+        $scope.newTileCols = tileCols;
         $scope.loading = false;
         setupClickHandlers();
       }
     );
   } else {
     
-    $scope.tiles = mapGenerator.generateTiles(20,30,20,3);
+    tileRows = 20;
+    tileCols = 30;
+    $scope.tiles = mapGenerator.generateTiles(tileRows,tileCols,20,3);
+    
+    $scope.newTileRows = tileRows;
+    $scope.newTileCols = tileCols;
     
     setupClickHandlers();
   }
@@ -56,8 +67,9 @@ var EditCtrl = ['$scope', '$timeout', '$http', '$routeParams', 'mapGenerator', f
   
   //$scope.boardSize = mapGenerator.getBoardSize(20,30);
 
-  $scope.tileRows = 20;
-  $scope.tileCols = 30;
+  
+  
+  
   $scope.type = 'water'
   $scope.$watch('type', function(type) {
     if (type) {
@@ -65,16 +77,17 @@ var EditCtrl = ['$scope', '$timeout', '$http', '$routeParams', 'mapGenerator', f
     }
   });
   
-  $scope.newTileRows = $scope.tileRows;
-  $scope.newTileCols = $scope.tileCols;
-  $scope.changeSize = function(tileRows, tileCols) {
-    $scope.tileRows = tileRows;
-    $scope.tileCols = tileCols;
+  $scope.changeSize = function(newRows, newCols) {
+    $scope.tiles = mapGenerator.changeMapSize($scope.tiles, tileRows, tileCols, newRows, newCols);
+    tileRows = newRows;
+    tileCols = newCols;
   }
   
   $scope.save = function() {
     var body = {
       tiles: $scope.tiles,
+      rows: $scope.newTileRows,
+      cols: $scope.newTileCols,
       name: $scope.name
     };
     $http.post('/map', body).then(

@@ -60,8 +60,27 @@ angular.module('hex.editor', [])
         return calculateHexTile();
       },
       
-      getBoardSize: function(rows, cols) {
-        return [cols * width, rows * height];
+      changeMapSize: function(tiles, rows, cols, newRows, newCols) {
+        var newTiles = tiles;
+        if (newRows) {
+          if (newRows < rows) {
+            var rowsToRemove = rows - newRows;
+            var startIndex = tiles.length - cols * rowsToRemove;
+            newTiles = tiles.slice(0,startIndex);
+          }
+        }
+        if (newCols) {
+          if (newCols < cols) {            
+            var left = [];
+            for (var i = 0; i < newTiles.length; i++) {
+              if (i % cols < newCols) {
+                left.push(newTiles[i]);
+              }
+            }
+            newTiles = left;
+          }
+        }
+        return newTiles;
       }
     };
   });
